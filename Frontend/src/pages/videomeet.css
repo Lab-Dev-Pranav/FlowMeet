@@ -1,0 +1,226 @@
+.videomeet-row, .clearer-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: stretch;
+      gap: 2.5rem;
+      width: 100%;
+      max-width: 700px;
+      background-color: #2a5298;
+      padding: 20px;
+      border-radius: 10px;
+}
+
+.left-section {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      min-width: 220px;
+      max-width: 320px;
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 0 2px 16px 0 rgba(0,0,0,0.08);
+      padding: 2rem 1.5rem;
+      border: 1px solid #e3e3e3;
+      gap: 1.2rem;
+}
+
+.lobby-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: #222;
+}
+
+.right-section {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 200px;
+      max-width: 320px;
+}
+
+.vedio-audio-check-box {
+      width: 100%;
+      background: #f8f8fa;
+      border-radius: 10px;
+      border: 1px solid #e3e3e3;
+      box-shadow: 0 2px 8px 0 rgba(0,0,0,0.04);
+      padding: 1.5rem 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+}
+
+.check-title {
+      font-size: 1.1rem;
+      font-weight: 500;
+      color: #444;
+      margin-bottom: 0.5rem;
+}
+
+.check-video {
+      width: 100%;
+      max-width: 220px;
+      height: 140px;
+      border-radius: 8px;
+      border: 1.5px solid #bbb;
+      background: #eee;
+      object-fit: cover;
+      box-shadow: 0 2px 8px 0 rgba(0,0,0,0.07);
+}
+
+.videomeet-main {
+      min-height: 100vh;
+      width: 100vw;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f5f6fa;
+}
+
+.username-modal {
+      min-width: 350px;
+      max-width: 400px;
+      width: 90vw;
+      padding: 2.5rem 2rem 2rem 2rem;
+      color: #fff;
+      border-radius: 18px;
+      background: rgba(30, 60, 114, 0.95);
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      border: none;
+      position: relative;
+      gap: 0.7rem;
+}
+.username-modal {
+      min-width: 320px;
+      max-width: 360px;
+      width: 95vw;
+      padding: 1.5rem 1.2rem 1.2rem 1.2rem;
+      color: #222;
+      border-radius: 10px;
+      background: #fff;
+      box-shadow: 0 2px 16px 0 rgba(0,0,0,0.08);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      border: 1px solid #e3e3e3;
+      position: relative;
+      gap: 0.5rem;
+}
+
+.vedio-audio-check {
+      margin-top: 1.2rem;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+}
+
+.vedio-audio-check video {
+      height: 120px;
+      width: 220px;
+      border: 2px solid #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px 0 rgba(30, 60, 114, 0.25);
+      background: #222;
+      object-fit: cover;
+
+.videomeet-row {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: stretch;
+      gap: 2.5rem;
+      width: 100%;
+      max-width: 700px;
+}
+
+.left-panel {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+      min-width: 220px;
+      max-width: 320px;
+}
+
+.right-panel {
+      flex: 1 1 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-width: 180px;
+      max-width: 260px;
+}
+
+.vedio-audio-check {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+}
+.vedio-audio-check video {
+      height: 180px;
+      width: 100%;
+      max-width: 240px;
+      border: 1.5px solid #bbb;
+      border-radius: 8px;
+      background: #eee;
+      object-fit: cover;
+      box-shadow: 0 2px 8px 0 rgba(0,0,0,0.07);
+}
+      text-shadow: 0 2px 8px rgba(30,60,114,0.2);
+}
+
+.username-modal .MuiTextField-root {
+      width: 100%;
+      margin-bottom: 0.8rem;
+}
+.username-modal .MuiTextField-root {
+      width: 100%;
+      margin-bottom: 1rem;
+}
+
+.username-modal .MuiButton-root {
+      width: 100%;
+      font-weight: 600;
+      font-size: 1.1rem;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(90deg, #1e3c72 0%, #2a5298 100%);
+      color: #fff;
+      box-shadow: 0 2px 8px 0 rgba(30,60,114,0.15);
+      border-radius: 8px;
+.username-modal .MuiButton-root {
+      width: 100%;
+      font-weight: 500;
+      font-size: 1rem;
+      margin-bottom: 0.5rem;
+      background: #2a5298;
+      color: #fff;
+      border-radius: 6px;
+      box-shadow: none;
+      transition: background 0.2s;
+}
+.username-modal .MuiButton-root:hover {
+      background: #1e3c72;
+}
+      transition: background 0.2s;
+}
+.username-modal .MuiButton-root:hover {
+      background: linear-gradient(90deg, #2a5298 0%, #1e3c72 100%);
+}

@@ -1,0 +1,5 @@
+// taycyXbLkaAJA5tN
+
+// pranavpatilg2004_db_user
+
+mongodb+srv://pranavpatilg2004_db_user:taycyXbLkaAJA5tN@zoomclonecluster0.wbkid4e.mongodb.net/?appName=ZoomCloneCluster0
