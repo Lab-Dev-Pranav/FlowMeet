@@ -1,3 +1,90 @@
+/* Video Conferencing Layout Enhancements */
+.video-meet-main-container {
+      position: relative;
+      width: 100%;
+      height: 80vh;
+      background: #181818;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+}
+
+.remote-videos-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 24px;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      height: 100%;
+}
+
+.remote-video-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+}
+
+.remote-video-el {
+      width: 420px;
+      max-width: 90vw;
+      height: 315px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 2px solid #c45757;
+      background: #222;
+      box-shadow: 0 2px 16px rgba(0,0,0,0.25);
+}
+
+.remote-username-label {
+      color: #d43131;
+      margin-top: 8px;
+      font-size: 1rem;
+      font-weight: 500;
+      text-shadow: 0 1px 2px #000;
+}
+
+.local-video-overlay {
+      position: absolute;
+      bottom: 24px;
+      right: 24px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+}
+
+.local-video-el {
+      width: 160px;
+      height: 120px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 2px solid #fff;
+      background: #222;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+}
+
+.local-username-label {
+      color: #e72c2c;
+      margin-top: 4px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      text-shadow: 0 1px 2px #000;
+}
+
+/*  */
+.controls-container{
+      height: 50px ;
+      width: 30%;
+      border: 2px solid #c45757;
+      position: relative;
+      bottom: -90px;
+}
+
+
+
 .videomeet-row, .clearer-row {
       display: flex;
       flex-direction: row;
@@ -224,3 +311,6 @@
 .username-modal .MuiButton-root:hover {
       background: linear-gradient(90deg, #2a5298 0%, #1e3c72 100%);
 }
+
+
+

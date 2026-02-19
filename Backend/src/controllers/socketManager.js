@@ -32,10 +32,11 @@ const connectToSocket = (server) => {
       }
 
       if (messages[path] === undefined) {
-        for (let a = 0; a < messages[path].length; a++) {
-          io.to(socket.id).emit('chat_message', messages[path][a]['data'],
-            messages[path][a]['sender'], messages[path][a]['socket-id-sender']);
-        }
+        messages[path] = [];
+      }
+      for (let a = 0; a < messages[path].length; a++) {
+        io.to(socket.id).emit('chat_message', messages[path][a]['data'],
+          messages[path][a]['sender'], messages[path][a]['socket-id-sender']);
       }
 
     });
@@ -76,7 +77,6 @@ const connectToSocket = (server) => {
       for(const [key, value] of JSON.parse(JSON.stringify(Object.entries(connections)))) {
           for( let i = 0; i < value.length; ++i) {
             if (value[i] === socket.id) {
-              key = key;
               for (let a = 0; a < connections[key].length; ++a) {
                 io.to(connections [key][a]).emit('user_disconnected', socket.id);
               }
