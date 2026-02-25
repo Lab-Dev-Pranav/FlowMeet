@@ -17,10 +17,11 @@ import ChatIcon from '@mui/icons-material/Chat';
 import GroupsIcon from '@mui/icons-material/Groups';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
+import server from '../environment';
 
 
 
-const serverUrl = import.meta.env.VITE_SERVER_URL || "http://localhost:3000";
+const serverUrl =  server;
 
 const peerConfigConnections = {
   iceServers: [
