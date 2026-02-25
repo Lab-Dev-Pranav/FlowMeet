@@ -1,64 +1,151 @@
-import { createContext, useState } from "react";
-import { useNavigate } from "react-router";
+import { createContext, useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export const authContext = createContext({});
 
 const client = axios.create({
-      baseURL: "http://localhost:3000/api/v1/users",
-})
+  baseURL: "http://localhost:3000/api/v1/users",
+});
 
 export const AuthProvider = ({ children }) => {
-      const [userData, setUserData] = useState({});
+  const [userData, setUserData] = useState(() => {
+    if (typeof window === "undefined") {
+      return null;
+    }
 
+    try {
+      const storedUser = localStorage.getItem("userData");
+      return storedUser ? JSON.parse(storedUser) : null;
+    } catch {
+      return null;
+    }
+  });
 
-      const router = useNavigate();
+  const router = useNavigate();
 
-      const handleRegister = async (name, username, password) => {
-            try {
-                  let request = await client.post("/register", {
-                        name,
-                        username,
-                        password,
-                  });
-                  if (request.status === 201) {
-                        return request.data.message;
-                  }
-            } catch (err) {
-                  throw err;
-            }
+  useEffect(() => {
+    if (userData) {
+      window.userdata = userData;
+      return;
+    }
+
+    delete window.userdata;
+  }, [userData]);
+
+  const handleRegister = async (name, username, password) => {
+    try {
+      const request = await client.post("/register", {
+        name,
+        username,
+        password,
+      });
+
+      if (request.status === 200 || request.status === 201) {
+        return request.data.message;
+      }
+    } catch (err) {
+      throw err;
+    }
+  };
+
+  const handleLogin = async (username, password) => {
+    try {
+      const request = await client.post("/login", {
+        username,
+        password,
+      });
+
+      if (request.status === 200) {
+        const token = request.data.token;
+        const loggedInUser = request.data.user || { username };
+
+        localStorage.setItem("token", token);
+        localStorage.setItem("userData", JSON.stringify(loggedInUser));
+        setUserData(loggedInUser);
+        document.cookie = `token=${token}; path=/; max-age=${60 * 60 * 24 * 7}`;
+        router("/");
       }
 
-      const handleLogin = async (username, password) => {
-            try {
+      return request.data;
+    } catch (err) {
+      throw err;
+    }
+  };
 
-                  let request = await client.post("/login", {
-                        username,
-                        password,
-                  });
+  const handleLogout = async () => {
+    const token = localStorage.getItem("token");
 
-                  console.log(request.data);
-                  if (request.status === 200) {
-                        localStorage.setItem("token", request.data.token);
-                        document.cookie = `token=${request.data.token}; path=/; max-age=${60 * 60 * 24 * 7}`;
-                        router("/");
-                  }
-
-            } catch (err) {
-                  throw err;
-            }
+    try {
+      if (token) {
+        await client.post("/logout", { token });
       }
+    } catch (err) {
+      console.error("Logout request failed", err);
+    } finally {
+      localStorage.removeItem("token");
+      localStorage.removeItem("userData");
+      setUserData(null);
+      document.cookie = "token=; path=/; max-age=0";
+      router("/");
+    }
+  };
 
-      const data = {
-            userData,
-            setUserData,
-            handleRegister,
-            handleLogin,
-      };
 
-      return (
-            <authContext.Provider value={data}>
-                  {children}
-            </authContext.Provider>
-      );
-}
+  const addUserHistory = async (meetingCode) => {
+    const token = localStorage.getItem("token");
+
+    if (!token || !meetingCode) {
+      return null;
+    }
+
+    try{
+        let req = await client.post("/addactivity", {
+          token,
+          meetingCode,
+        });
+        return req;
+    }catch(err){
+      console.log(err);
+      return null;
+    }
+
+  }
+       
+
+
+
+
+  const getUserHistory = async () => {
+    try{
+        let req = await client.get("/getactivity", {
+          params: {
+            token: localStorage.getItem("token"),
+          },
+        });
+        return req.data;      
+        
+    }catch(err){
+      console.log(err);
+    }
+  }
+
+
+
+
+
+
+  const data = {
+    userData,
+    setUserData,
+    getUserHistory,
+    addUserHistory,
+    handleRegister,
+    handleLogin,
+    handleLogout,
+  };
+
+  return <authContext.Provider value={data}>{children}</authContext.Provider>;
+};
+
+

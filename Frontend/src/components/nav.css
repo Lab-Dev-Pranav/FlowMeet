@@ -1,0 +1,93 @@
+.hamburger {
+  display: none;
+  font-size: 28px;
+  color: white;
+  cursor: pointer;
+}
+
+.navbar {
+  height: 50px;
+  width: 100%;
+  padding: 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #8056f3bd;
+  /* position: fixed;
+  top: 0; */
+  z-index: 1;
+}
+
+.logo {
+  color: white;
+  font-size: 22px;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.navlist {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  color: white;
+  list-style: none;
+}
+
+.navlist li {
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+.navlist li:hover {
+  text-decoration: underline;
+}
+
+.btn {
+  --fancy-button-gradient-0: #8d49fd;
+  --fancy-button-gradient-50: #7f56f3;
+  --fancy-button-gradient-100: #5691f3;
+  font-size: 15px;
+  font-weight: 500;
+  border: none;
+  border-radius: 25px;
+  color: #fff;
+  cursor: pointer;
+  background-image: linear-gradient(
+    to bottom,
+    var(--fancy-button-gradient-0),
+    var(--fancy-button-gradient-50),
+    var(--fancy-button-gradient-100)
+  );
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+.btn span {
+  display: block;
+  padding: 12px 24px;
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    padding: 0 20px;
+  }
+
+  .hamburger {
+    display: block;
+  }
+
+  .navlist {
+    position: absolute;
+    top: 70px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.85);
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 12px;
+    display: none;
+  }
+
+  .navlist.active {
+    display: flex;
+  }
+}

@@ -5,6 +5,7 @@ const socketIO = require('socket.io');
 let connections = {};
 let messages = {};
 let timeOnline = {};
+let roomParticipants = {};
 
 const connectToSocket = (server) => {
   const io = socketIO(server, {
@@ -21,14 +22,23 @@ const connectToSocket = (server) => {
 
     
 
-    socket.on('join_call', (path) => {
+    socket.on('join_call', (path, username) => {
       if (connections[path] === undefined) {
         connections[path] = [];
       }
+      if (roomParticipants[path] === undefined) {
+        roomParticipants[path] = {};
+      }
+
       connections[path].push(socket.id);
+      const participantName = typeof username === 'string' && username.trim()
+        ? username.trim()
+        : `User ${socket.id.substring(0, 6)}`;
+      roomParticipants[path][socket.id] = participantName;
       timeOnline[socket.id] = new Date();
+
       for (let a = 0; a < connections[path].length; a++) {
-        io.to(connections[path][a]).emit('user_joined', socket.id, connections[path]);
+        io.to(connections[path][a]).emit('user_joined', socket.id, connections[path], roomParticipants[path]);
       }
 
       if (messages[path] === undefined) {
@@ -60,7 +70,7 @@ const connectToSocket = (server) => {
           messages[matchingRoom] = [];
         }
         messages[matchingRoom].push({'data': data, 'sender': sender, 'socket-id-sender': socket.id});
-        console.log("Message stored in room: ", key , ": ", data, " from ", sender);
+        console.log("Message stored in room: ", matchingRoom , ": ", data, " from ", sender);
 
         connections[matchingRoom].forEach(socketId => {
           io.to(socketId).emit('chat_message', data, sender, socket.id);
@@ -83,9 +93,13 @@ const connectToSocket = (server) => {
               var index = connections[key].indexOf(socket.id);
 
               connections[key].splice(index, 1);
+              if (roomParticipants[key] !== undefined) {
+                delete roomParticipants[key][socket.id];
+              }
 
               if(connections[key].length == 0) {  
                 delete connections[key];
+                delete roomParticipants[key];
               }
 
             }

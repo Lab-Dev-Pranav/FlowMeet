@@ -11,14 +11,13 @@ router.post('/login', userController.loginUser);
 // POST /api/user/register
 router.post('/register', userController.registerUser);
 
-// POST /api/user/add_to_activity
-router.post('/add_to_activity', (req, res) => {
-  res.send('Add to activity');
-});
+// POST /api/user/logout
+router.post('/logout', userController.logoutUser);
 
-// GET /api/user/get_all_activity
-router.get('/get_all_activity', (req, res) => {
-  res.send('Get all activity');
-});
+// POST http://localhost:3000/api/v1/users/addactivity
+router.post('/addactivity', userController.addUserHistory);
+
+// GET http://localhost:3000/api/v1/users/getactivity
+router.get('/getactivity', userController.getUserHistory);
 
 module.exports = router;
