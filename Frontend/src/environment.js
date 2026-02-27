@@ -1,11 +1,10 @@
+const rawEnvServerUrl = (import.meta.env.VITE_SERVER_URL || "").trim();
+const defaultServerUrl = import.meta.env.PROD
+  ? "https://flowmeet-be.onrender.com"
+  : "http://localhost:3000";
 
-let Is_Prod_Or_Dev = false;
+const server = (rawEnvServerUrl || defaultServerUrl).replace(/\/+$/, "");
+const apiBaseUrl = `${server}/api/v1/users`;
 
-// false for Dev      
-// true for Prod
-
-const server = Is_Prod_Or_Dev ? "https://flowmeet-be.onrender.com" : "http://localhost:3000" 
- 
-
-
+export { server, apiBaseUrl };
 export default server;

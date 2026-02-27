@@ -16,8 +16,10 @@ function Home() {
 
 
       let handleJoinVideoCall = async () => {
-            await addUserHistory(mettingCode)
-            navigate(`/${mettingCode}`);
+            const meetingCode = mettingCode.trim();
+            if (!meetingCode) return;
+            await addUserHistory(meetingCode);
+            navigate(`/${encodeURIComponent(meetingCode)}`);
       };
 
       return (

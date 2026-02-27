@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import "./videomeet.css";
 import Box from '@mui/material/Box';
@@ -77,6 +77,8 @@ const RemoteVideoTile = React.memo(function RemoteVideoTile({
 function VideoMeet() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { url } = useParams();
+  const roomKey = decodeURIComponent((url || "").trim());
 
   // Refs
   const socketRef = useRef(null);
@@ -615,7 +617,6 @@ function VideoMeet() {
   // Connect to socket server
   const connectToSocketServer = () => {
     socketRef.current = io(serverUrl, {
-      secure: false,
       transports: ["websocket"]
     });
 
@@ -625,7 +626,7 @@ function VideoMeet() {
       console.log("Connected to socket server");
 
       // ✅ FIXED: Emit from socketRef.current, not socketIdRef.current
-      socketRef.current.emit('join_call', location.pathname, username);
+      socketRef.current.emit('join_call', roomKey || location.pathname, username);
       socketIdRef.current = socketRef.current.id;
 
       // Handle chat messages

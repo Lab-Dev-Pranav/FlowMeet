@@ -16,6 +16,7 @@ import Snackbar from '@mui/material/Snackbar'
 
 import { authContext } from '../contexts/AuthContexts.jsx';
 import { useNavigate, useLocation} from 'react-router-dom';
+import { server } from '../environment';
 
 
 
@@ -43,6 +44,8 @@ export default function Authentication() {
   const { handleRegister, handleLogin } = React.useContext(authContext);
 
   let handleAuth = async () => {
+    setError("");
+
     try {
       if (formstate === 0) {
         // login logic
@@ -62,9 +65,12 @@ export default function Authentication() {
         // navigate("/"); // Redirect to home after registration
       }
     } catch (err) {
-      // console.log(err);
-      // return;
-      let msg = err.response.data.message || "Registration failed";
+      const fallbackMessage = formstate === 0 ? "Login failed" : "Registration failed";
+      const backendMessage = err?.response?.data?.message;
+      const isNetworkIssue = !err?.response;
+      const msg = backendMessage || (isNetworkIssue
+        ? `Cannot connect to server at ${server}. Please make sure backend is running.`
+        : fallbackMessage);
       setError(msg);
     }
   }

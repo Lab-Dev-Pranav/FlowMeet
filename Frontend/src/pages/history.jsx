@@ -52,8 +52,9 @@ function History() {
   };
 
   const handleJoinMeeting = (meetingCode) => {
-    if (!meetingCode) return;
-    navigate(`/${meetingCode}`);
+    const normalizedMeetingCode = (meetingCode || "").trim();
+    if (!normalizedMeetingCode) return;
+    navigate(`/${encodeURIComponent(normalizedMeetingCode)}`);
   };
 
   if (loading) {

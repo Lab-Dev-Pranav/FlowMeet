@@ -1,12 +1,12 @@
 import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import server from "../environment"
+import { apiBaseUrl } from "../environment"
 
 export const authContext = createContext({});
 
 const client = axios.create({
-  baseURL: `${server}/api/v1/users`,
+  baseURL: apiBaseUrl,
 });
 
 export const AuthProvider = ({ children }) => {
@@ -148,5 +148,4 @@ export const AuthProvider = ({ children }) => {
 
   return <authContext.Provider value={data}>{children}</authContext.Provider>;
 };
-
 
