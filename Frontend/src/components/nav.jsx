@@ -1,5 +1,5 @@
 import { useContext, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { authContext } from '../contexts/AuthContexts.jsx'
 import './nav.css'
 import IconButton from '@mui/material/IconButton';
@@ -8,6 +8,7 @@ import ReStoreIcon from '@mui/icons-material/Restore';
 
 function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const location = useLocation()
   const { userData, handleLogout } = useContext(authContext)
 
   const closeMenu = () => setMenuOpen(false)
@@ -31,7 +32,7 @@ function Navbar() {
           
       }
         {
-          window.location.pathname === "/home" && userData ? (
+          location.pathname === "/home" && userData ? (
             <li>
               <Link
                 to="/history"

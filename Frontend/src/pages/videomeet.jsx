@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import "./videomeet.css";
 import Box from '@mui/material/Box';
@@ -74,6 +75,9 @@ const RemoteVideoTile = React.memo(function RemoteVideoTile({
 });
 
 function VideoMeet() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
   // Refs
   const socketRef = useRef(null);
   const socketIdRef = useRef(null);
@@ -621,7 +625,7 @@ function VideoMeet() {
       console.log("Connected to socket server");
 
       // ✅ FIXED: Emit from socketRef.current, not socketIdRef.current
-      socketRef.current.emit('join_call', window.location.href, username);
+      socketRef.current.emit('join_call', location.pathname, username);
       socketIdRef.current = socketRef.current.id;
 
       // Handle chat messages
@@ -878,9 +882,7 @@ function VideoMeet() {
   };
 
   let handleEndCall = () => {
-    //redirect to home 
-    window.location.href = "/home";
-
+    navigate("/home");
   }
 
   // Cleanup on unmount
